@@ -10,11 +10,11 @@ import { HeaderComponent } from './ui/header/header.component';
 import { FooterComponent } from './ui/footer/footer.component';
 import { LayoutComponent } from './ui/layout/layout.component';
 import { HomeComponent } from './home/home.component';
-import { EmployeeListComponent } from './employee/employee-list/employee-list.component';
-import { EmployeeEditComponent } from './employee/employee-edit/employee-edit.component';
-import { EmployeeDetailComponent } from './employee/employee-detail/employee-detail.component';
-import { EmployeeEditGuard } from './employee/employee-edit/employee-edit-guard';
-import { EmployeeService } from './employee/employee.service';
+import { EmployeeListComponent } from './posting/posting-list/posting-list.component';
+import { EmployeeEditComponent } from './posting/posting-edit/posting-edit.component';
+import { EmployeeDetailComponent } from './posting/posting-detail/posting-detail.component';
+import { EmployeeEditGuard } from './posting/posting-edit/posting-edit-guard';
+import { EmployeeService } from './posting/posting.service';
 
 
 @NgModule({

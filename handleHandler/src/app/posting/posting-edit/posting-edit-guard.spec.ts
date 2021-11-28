@@ -1,4 +1,4 @@
-import { EmployeeEditGuard } from './employee-edit-guard';
+import { EmployeeEditGuard } from './posting-edit-guard';
 
 describe('EmployeeEditGuard', () => {
   it('should create an instance', () => {

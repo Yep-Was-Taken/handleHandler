@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';  
 import { Subscription } from 'rxjs';  
 import { ActivatedRoute, Router } from '@angular/router';  
-import { Employee } from '../employee';
-import { EmployeeService } from '../employee.service';
+import { Employee } from '../posting';
+import { EmployeeService } from '../posting.service';
 import { GenericValidator } from 'src/app/shared/genericvalidator';
   
 @Component({  
