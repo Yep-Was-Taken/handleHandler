@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'Angular8Cosmos'`, () => {
+  it(`should have as title 'handleHandler'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('Angular8Cosmos');
+    expect(app.title).toEqual('handleHandler');
   });
 
   it('should render title in a h1 tag', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to Angular8Cosmos!');
+    expect(compiled.querySelector('h1').textContent).toContain('Welcome to handleHandler!');
   });
 });

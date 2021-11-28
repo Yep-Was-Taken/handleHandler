@@ -2,21 +2,21 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';  
 import { Subscription } from 'rxjs';  
 import { ActivatedRoute, Router } from '@angular/router';  
-import { Employee } from '../posting';
-import { EmployeeService } from '../posting.service';
+import { Posting } from '../posting';
+import { PostingService } from '../posting.service';
 import { GenericValidator } from 'src/app/shared/genericvalidator';
   
 @Component({  
-  selector: 'app-employee-edit',  
-  templateUrl: './employee-edit.component.html',  
-  styleUrls: ['./employee-edit.component.css']  
+  selector: 'app-posting-edit',  
+  templateUrl: './posting-edit.component.html',  
+  styleUrls: ['./posting-edit.component.css']  
 })  
-export class EmployeeEditComponent implements OnInit, OnDestroy {  
-  pageTitle = 'Employee Edit';  
+export class PostingEditComponent implements OnInit, OnDestroy {  
+  pageTitle = 'Posting Edit';  
   errorMessage: string;  
-  employeeForm: FormGroup;  
+  postingForm: FormGroup;  
   tranMode: string;  
-  employee: Employee;  
+  posting: Posting;  
   private sub: Subscription;  
   
   displayMessage: { [key: string]: string } = {};  
@@ -27,16 +27,16 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
   constructor(private fb: FormBuilder,  
     private route: ActivatedRoute,  
     private router: Router,  
-    private employeeService: EmployeeService) {  
+    private postingService: PostingService) {  
   
     this.validationMessages = {  
       name: {  
-        required: 'Employee name is required.',  
-        minlength: 'Employee name must be at least three characters.',  
-        maxlength: 'Employee name cannot exceed 50 characters.'  
+        required: 'Posting name is required.',  
+        minlength: 'Posting name must be at least three characters.',  
+        maxlength: 'Posting name cannot exceed 50 characters.'  
       },  
       cityname: {  
-        required: 'Employee city name is required.',  
+        required: 'Posting city name is required.',  
       }  
     };  
     this.genericValidator = new GenericValidator(this.validationMessages);  
@@ -44,7 +44,7 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
   
   ngOnInit() {  
     this.tranMode = "new";  
-    this.employeeForm = this.fb.group({  
+    this.postingForm = this.fb.group({  
       name: ['', [Validators.required,  
       Validators.minLength(3),  
       Validators.maxLength(50)  
@@ -61,11 +61,11 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
         const id = params.get('id');  
         const cityname = params.get('cityname');  
         if (id == '0') {  
-          const employee: Employee = { id: "0", name: "", address: "", gender: "", company: "", designation: "", cityname: "" };  
-          this.displayEmployee(employee);  
+          const posting: Posting = { id: "0", name: "", address: "", gender: "", company: "", designation: "", cityname: "" };  
+          this.displayPosting(posting);  
         }  
         else {  
-          this.getEmployee(id, cityname);  
+          this.getPosting(id, cityname);  
         }  
       }  
     );  
@@ -75,40 +75,40 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe();  
   }  
   
-  getEmployee(id: string, cityname: string): void {  
-    this.employeeService.getEmployee(id, cityname)  
+  getPosting(id: string, cityname: string): void {  
+    this.postingService.getPosting(id, cityname)  
       .subscribe(  
-        (employee: Employee) => this.displayEmployee(employee),  
+        (posting: Posting) => this.displayPosting(posting),  
         (error: any) => this.errorMessage = <any>error  
       );  
   }  
   
-  displayEmployee(employee: Employee): void {  
-    if (this.employeeForm) {  
-      this.employeeForm.reset();  
+  displayPosting(posting: Posting): void {  
+    if (this.postingForm) {  
+      this.postingForm.reset();  
     }  
-    this.employee = employee;  
-    if (this.employee.id == '0') {  
-      this.pageTitle = 'Add Employee';  
+    this.posting = posting;  
+    if (this.posting.id == '0') {  
+      this.pageTitle = 'Add Posting';  
     } else {  
-      this.pageTitle = `Edit Employee: ${this.employee.name}`;  
+      this.pageTitle = `Edit Posting: ${this.posting.name}`;  
     }  
-    this.employeeForm.patchValue({  
-      name: this.employee.name,  
-      address: this.employee.address,  
-      gender: this.employee.gender,  
-      company: this.employee.company,  
-      designation: this.employee.designation,  
-      cityname: this.employee.cityname  
+    this.postingForm.patchValue({  
+      name: this.posting.name,  
+      address: this.posting.address,  
+      gender: this.posting.gender,  
+      company: this.posting.company,  
+      designation: this.posting.designation,  
+      cityname: this.posting.cityname  
     });  
   }  
   
-  deleteEmployee(): void {  
-    if (this.employee.id == '0') {  
+  deletePosting(): void {  
+    if (this.posting.id == '0') {  
       this.onSaveComplete();  
     } else {  
-      if (confirm(`Are you sure want to delete this Employee: ${this.employee.name}?`)) {  
-        this.employeeService.deleteEmployee(this.employee.id, this.employee.cityname)  
+      if (confirm(`Are you sure want to delete this Posting: ${this.posting.name}?`)) {  
+        this.postingService.deletePosting(this.posting.id, this.posting.cityname)  
           .subscribe(  
             () => this.onSaveComplete(),  
             (error: any) => this.errorMessage = <any>error  
@@ -117,18 +117,18 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
     }  
   }  
   
-  saveEmployee(): void {  
-    if (this.employeeForm.valid) {  
-      if (this.employeeForm.dirty) {  
-        const p = { ...this.employee, ...this.employeeForm.value };  
+  savePosting(): void {  
+    if (this.postingForm.valid) {  
+      if (this.postingForm.dirty) {  
+        const p = { ...this.posting, ...this.postingForm.value };  
         if (p.id === '0') {  
-          this.employeeService.createEmployee(p)  
+          this.postingService.createPosting(p)  
             .subscribe(  
               () => this.onSaveComplete(),  
               (error: any) => this.errorMessage = <any>error  
             );  
         } else {  
-          this.employeeService.updateEmployee(p)  
+          this.postingService.updatePosting(p)  
             .subscribe(  
               () => this.onSaveComplete(),  
               (error: any) => this.errorMessage = <any>error  
@@ -143,7 +143,7 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
   }  
   
   onSaveComplete(): void {  
-    this.employeeForm.reset();  
-    this.router.navigate(['/employees']);  
+    this.postingForm.reset();  
+    this.router.navigate(['/postings']);  
   }  
 }  

@@ -1,35 +1,35 @@
 <div class="card">  
   <div class="card-header"  
-       *ngIf="employee">  
-    {{pageTitle + ": " + employee.name}}  
+       *ngIf="posting">  
+    {{pageTitle + ": " + posting.name}}  
   </div>  
   <div class="card-body"  
-       *ngIf="employee">  
+       *ngIf="posting">  
     <div class="row">  
       <div class="col-md-8">  
         <div class="row">  
           <div class="col-md-3">Name:</div>  
-          <div class="col-md-6">{{employee.name}}</div>  
+          <div class="col-md-6">{{posting.name}}</div>  
         </div>  
         <div class="row">  
           <div class="col-md-3">City:</div>  
-          <div class="col-md-6">{{employee.cityname}}</div>  
+          <div class="col-md-6">{{posting.cityname}}</div>  
         </div>  
         <div class="row">  
           <div class="col-md-3">Address:</div>  
-          <div class="col-md-6">{{employee.address}}</div>  
+          <div class="col-md-6">{{posting.address}}</div>  
         </div>  
         <div class="row">  
           <div class="col-md-3">Gender:</div>  
-          <div class="col-md-6">{{employee.gender}}</div>  
+          <div class="col-md-6">{{posting.gender}}</div>  
         </div>  
         <div class="row">  
           <div class="col-md-3">Company:</div>  
-          <div class="col-md-6">{{employee.company}}</div>  
+          <div class="col-md-6">{{posting.company}}</div>  
         </div>  
         <div class="row">  
           <div class="col-md-3">Designation:</div>  
-          <div class="col-md-6">{{employee.designation}}</div>  
+          <div class="col-md-6">{{posting.designation}}</div>  
         </div>  
       </div>  
     </div>  
@@ -42,7 +42,7 @@
         </button>  
         <button class="btn btn-outline-primary"  
                 style="width:80px"  
-                [routerLink]="['/employees', employee.id, employee.cityname, 'edit']">  
+                [routerLink]="['/postings', posting.id, posting.cityname, 'edit']">  
           Edit  
         </button>  
       </div>  

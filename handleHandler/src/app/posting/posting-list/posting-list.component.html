@@ -10,8 +10,8 @@
       </div>
       <div class="col-md-3"></div>
       <div class="col-md-3">
-        <button class="btn btn-primary mr-3" [routerLink]="['/employees/0/0/edit']">
-          <i class="fa fa-plus"></i> New Employee
+        <button class="btn btn-primary mr-3" [routerLink]="['/postings/0/0/edit']">
+          <i class="fa fa-plus"></i> New Posting
         </button>
       </div>
     </div>
@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="table-responsive">
-      <table class="table mb-0" *ngIf="employees && employees.length">
+      <table class="table mb-0" *ngIf="postings && postings.length">
         <thead>
           <tr>
             <th>Name</th>
@@ -34,25 +34,25 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let employee of filteredEmployees">
+          <tr *ngFor="let posting of filteredPostings">
             <td>
-              <a [routerLink]="['/employees', employee.id,employee.cityname]">
-                {{ employee.name }}
+              <a [routerLink]="['/postings', posting.id,posting.cityname]">
+                {{ posting.name }}
               </a>
             </td>
-            <td>{{ employee.address }}</td>
-            <td>{{ employee.gender }}</td>
-            <td>{{ employee.company }}</td>
-            <td>{{ employee.designation}} </td>
+            <td>{{ posting.address }}</td>
+            <td>{{ posting.gender }}</td>
+            <td>{{ posting.company }}</td>
+            <td>{{ posting.designation}} </td>
             <td>
               <button class="btn btn-outline-primary btn-sm"
-                [routerLink]="['/employees', employee.id, employee.cityname, 'edit']">
+                [routerLink]="['/postings', posting.id, posting.cityname, 'edit']">
                 <i class="fa fa-edit"></i> Edit
               </button>
             </td>
             <td>
               <button class="btn btn-outline-warning btn-sm"
-                (click)="deleteEmployee(employee.id,  employee.name,employee.cityname);">
+                (click)="deletePosting(posting.id,  posting.name,posting.cityname);">
                 <i class="fa fa-trash"></i> Delete
               </button>
             </td>

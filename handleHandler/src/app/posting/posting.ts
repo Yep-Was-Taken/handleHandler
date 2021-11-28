@@ -1,4 +1,4 @@
-export interface Employee {
+export interface Posting {
     id: string,
     name: string,
     address: string,

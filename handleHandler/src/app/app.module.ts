@@ -10,11 +10,11 @@ import { HeaderComponent } from './ui/header/header.component';
 import { FooterComponent } from './ui/footer/footer.component';
 import { LayoutComponent } from './ui/layout/layout.component';
 import { HomeComponent } from './home/home.component';
-import { EmployeeListComponent } from './posting/posting-list/posting-list.component';
-import { EmployeeEditComponent } from './posting/posting-edit/posting-edit.component';
-import { EmployeeDetailComponent } from './posting/posting-detail/posting-detail.component';
-import { EmployeeEditGuard } from './posting/posting-edit/posting-edit-guard';
-import { EmployeeService } from './posting/posting.service';
+import { PostingListComponent } from './posting/posting-list/posting-list.component';
+import { PostingEditComponent } from './posting/posting-edit/posting-edit.component';
+import { PostingDetailComponent } from './posting/posting-detail/posting-detail.component';
+import { PostingEditGuard } from './posting/posting-edit/posting-edit-guard';
+import { PostingService } from './posting/posting.service';
 
 
 @NgModule({
@@ -24,9 +24,9 @@ import { EmployeeService } from './posting/posting.service';
     FooterComponent,
     LayoutComponent,
     HomeComponent,
-    EmployeeListComponent,
-    EmployeeEditComponent,
-    EmployeeDetailComponent
+    PostingListComponent,
+    PostingEditComponent,
+    PostingDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -40,17 +40,17 @@ import { EmployeeService } from './posting/posting.service';
         component: HomeComponent
       },
       {
-        path: 'employees',
-        component: EmployeeListComponent
+        path: 'postings',
+        component: PostingListComponent
       },
       {
-        path: 'employees/:id/:cityname',
-        component: EmployeeDetailComponent
+        path: 'postings/:id/:cityname',
+        component: PostingDetailComponent
       },
       {
-        path: 'employees/:id/:cityname/edit',
-        canDeactivate: [EmployeeEditGuard],
-        component: EmployeeEditComponent
+        path: 'postings/:id/:cityname/edit',
+        canDeactivate: [PostingEditGuard],
+        component: PostingEditComponent
       },
       {
         path: '',
@@ -65,7 +65,7 @@ import { EmployeeService } from './posting/posting.service';
     ])
   ],
   providers: [
-    EmployeeService
+    PostingService
   ],
   bootstrap: [AppComponent]
 })

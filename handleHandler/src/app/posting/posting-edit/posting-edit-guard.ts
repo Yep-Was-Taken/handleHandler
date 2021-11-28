@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';  
 import { CanDeactivate } from '@angular/router';  
 import { Observable } from 'rxjs';  
-import { EmployeeEditComponent } from './posting-edit.component';  
+import { PostingEditComponent } from './posting-edit.component';  
   
   
 @Injectable({  
   providedIn: 'root'  
 })  
-export class EmployeeEditGuard implements CanDeactivate<EmployeeEditComponent> {  
-  canDeactivate(component: EmployeeEditComponent): Observable<boolean> | Promise<boolean> | boolean {  
-    if (component.employeeForm.dirty) {  
-      const name = component.employeeForm.get('name').value || 'New Employee';  
+export class PostingEditGuard implements CanDeactivate<PostingEditComponent> {  
+  canDeactivate(component: PostingEditComponent): Observable<boolean> | Promise<boolean> | boolean {  
+    if (component.postingForm.dirty) {  
+      const name = component.postingForm.get('name').value || 'New Posting';  
       return confirm(`Navigate away and lose all changes to ${name}?`);  
     }  
     return true;  

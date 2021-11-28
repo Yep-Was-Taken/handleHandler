@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';  
-import { Employee } from '../posting';
-import { EmployeeService } from '../posting.service';
+import { Posting } from '../posting';
+import { PostingService } from '../posting.service';
   
 @Component({  
-  selector: 'app-employee-list',  
-  templateUrl: './employee-list.component.html',  
-  styleUrls: ['./employee-list.component.css']  
+  selector: 'app-posting-list',  
+  templateUrl: './posting-list.component.html',  
+  styleUrls: ['./posting-list.component.css']  
 })  
-export class EmployeeListComponent implements OnInit {  
-  pageTitle = 'Employee List';  
-  filteredEmployees: Employee[] = [];  
-  employees: Employee[] = [];  
+export class PostingListComponent implements OnInit {  
+  pageTitle = 'Posting List';  
+  filteredPostings: Posting[] = [];  
+  postings: Posting[] = [];  
   errorMessage = '';  
   
   _listFilter = '';  
@@ -19,33 +19,33 @@ export class EmployeeListComponent implements OnInit {
   }  
   set listFilter(value: string) {  
     this._listFilter = value;  
-    this.filteredEmployees = this.listFilter ? this.performFilter(this.listFilter) : this.employees;  
+    this.filteredPostings = this.listFilter ? this.performFilter(this.listFilter) : this.postings;  
   }  
   
-  constructor(private employeeService: EmployeeService) { }  
+  constructor(private postingService: PostingService) { }  
   
-  performFilter(filterBy: string): Employee[] {  
+  performFilter(filterBy: string): Posting[] {  
     filterBy = filterBy.toLocaleLowerCase();  
-    return this.employees.filter((employee: Employee) =>  
-      employee.name.toLocaleLowerCase().indexOf(filterBy) !== -1);  
+    return this.postings.filter((posting: Posting) =>  
+      posting.name.toLocaleLowerCase().indexOf(filterBy) !== -1);  
   }  
   
   ngOnInit(): void {  
-    this.employeeService.getEmployees().subscribe(  
-      employees => {  
-        this.employees = employees;  
-        this.filteredEmployees = this.employees;  
+    this.postingService.getPostings().subscribe(  
+      postings => {  
+        this.postings = postings;  
+        this.filteredPostings = this.postings;  
       },  
       error => this.errorMessage = <any>error  
     );  
   }  
   
-  deleteEmployee(id: string, name: string, cityname: string): void {  
+  deletePosting(id: string, name: string, cityname: string): void {  
     if (id === '') {  
       this.onSaveComplete();  
     } else {  
-      if (confirm(`Are you sure want to delete this Employee: ${name}?`)) {  
-        this.employeeService.deleteEmployee(id, cityname)  
+      if (confirm(`Are you sure want to delete this Posting: ${name}?`)) {  
+        this.postingService.deletePosting(id, cityname)  
           .subscribe(  
             () => this.onSaveComplete(),  
             (error: any) => this.errorMessage = <any>error  
@@ -55,10 +55,10 @@ export class EmployeeListComponent implements OnInit {
   }  
   
   onSaveComplete(): void {  
-    this.employeeService.getEmployees().subscribe(  
-      employees => {  
-        this.employees = employees;  
-        this.filteredEmployees = this.employees;  
+    this.postingService.getPostings().subscribe(  
+      postings => {  
+        this.postings = postings;  
+        this.filteredPostings = this.postings;  
       },  
       error => this.errorMessage = <any>error  
     );  

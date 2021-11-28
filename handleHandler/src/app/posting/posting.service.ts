@@ -2,55 +2,55 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Employee } from './posting';
+import { Posting } from './posting';
 
 @Injectable()
-export class EmployeeService {
-  private employeesUrl = 'http://localhost:7071/api/';
+export class PostingService {
+  private postingsUrl = 'http://localhost:7071/api/';
 
   constructor(private http: HttpClient) { }
 
-  getEmployees(): Observable<Employee[]> {
-    return this.http.get<Employee[]>(this.employeesUrl + 'Get')
+  getPostings(): Observable<Posting[]> {
+    return this.http.get<Posting[]>(this.postingsUrl + 'Get')
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  getEmployee(id: string, cityName: string): Observable<Employee> {
+  getPosting(id: string, cityName: string): Observable<Posting> {
     if (id === '') {
-      return of(this.initializeEmployee());
+      return of(this.initializePosting());
     }
-    const url = `${this.employeesUrl + 'Get'}/${id}/${cityName}`;
-    return this.http.get<Employee>(url)
+    const url = `${this.postingsUrl + 'Get'}/${id}/${cityName}`;
+    return this.http.get<Posting>(url)
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  createEmployee(employee: Employee): Observable<Employee> {
+  createPosting(posting: Posting): Observable<Posting> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<Employee>(this.employeesUrl + 'CreateOrUpdate', employee, { headers: headers })
+    return this.http.post<Posting>(this.postingsUrl + 'CreateOrUpdate', posting, { headers: headers })
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  deleteEmployee(id: string, cityname: string): Observable<{}> {
+  deletePosting(id: string, cityname: string): Observable<{}> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const url = `${this.employeesUrl + 'Delete'}/${id}/${cityname}`;
-    return this.http.delete<Employee>(url, { headers: headers })
+    const url = `${this.postingsUrl + 'Delete'}/${id}/${cityname}`;
+    return this.http.delete<Posting>(url, { headers: headers })
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  updateEmployee(employee: Employee): Observable<Employee> {
+  updatePosting(posting: Posting): Observable<Posting> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const url = this.employeesUrl + 'CreateOrUpdate';
-    return this.http.put<Employee>(url, employee, { headers: headers })
+    const url = this.postingsUrl + 'CreateOrUpdate';
+    return this.http.put<Posting>(url, posting, { headers: headers })
       .pipe(
-        map(() => employee),
+        map(() => posting),
         catchError(this.handleError)
       );
   }
@@ -66,7 +66,7 @@ export class EmployeeService {
     return throwError(errorMessage);
   }
 
-  private initializeEmployee(): Employee {
+  private initializePosting(): Posting {
     return {
       id: null,
       name: null,

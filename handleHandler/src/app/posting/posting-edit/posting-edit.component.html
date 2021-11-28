@@ -5,15 +5,15 @@
   
   <div class="card-body">  
     <form novalidate  
-          (ngSubmit)="saveEmployee()"  
-          [formGroup]="employeeForm">  
+          (ngSubmit)="savePosting()"  
+          [formGroup]="postingForm">  
   
       <div class="form-group row mb-2">  
         <label class="col-md-2 col-form-label"  
-               for="employeeNameId">Employee Name</label>  
+               for="postingNameId">Posting Name</label>  
         <div class="col-md-8">  
           <input class="form-control"  
-                 id="employeeNameId"  
+                 id="postingNameId"  
                  type="text"  
                  placeholder="Name (required)"  
                  formControlName="name"  
@@ -94,22 +94,22 @@
           <button class="btn btn-primary mr-3"  
                   style="width:80px;"  
                   type="submit"  
-                  [title]="employeeForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"  
-                  [disabled]="!employeeForm.valid">  
+                  [title]="postingForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"  
+                  [disabled]="!postingForm.valid">  
             Save  
           </button>  
           <button class="btn btn-outline-secondary mr-3"  
                   style="width:80px;"  
                   type="button"  
                   title="Cancel your edits"  
-                  [routerLink]="['/employees']">  
+                  [routerLink]="['/postings']">  
             Cancel  
           </button>  
-          <button class="btn btn-outline-warning" *ngIf="pageTitle != 'Add Employee'"  
+          <button class="btn btn-outline-warning" *ngIf="pageTitle != 'Add Posting'"  
                   style="width:80px"  
                   type="button"  
                   title="Delete this product"  
-                  (click)="deleteEmployee()">  
+                  (click)="deletePosting()">  
             Delete  
           </button>  
         </div>  

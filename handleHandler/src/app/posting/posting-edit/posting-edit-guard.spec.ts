@@ -1,7 +1,7 @@
-import { EmployeeEditGuard } from './posting-edit-guard';
+import { PostingEditGuard } from './posting-edit-guard';
 
-describe('EmployeeEditGuard', () => {
+describe('PostingEditGuard', () => {
   it('should create an instance', () => {
-    expect(new EmployeeEditGuard()).toBeTruthy();
+    expect(new PostingEditGuard()).toBeTruthy();
   });
 });
