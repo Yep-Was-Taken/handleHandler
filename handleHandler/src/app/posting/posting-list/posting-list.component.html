@@ -24,11 +24,8 @@
       <table class="table mb-0" *ngIf="postings && postings.length">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Address</th>
-            <th>Gender</th>
-            <th>Company</th>
-            <th>Designation</th>
+            <th>Handle</th>
+            <th>Price</th>
             <th></th>
             <th></th>
           </tr>
@@ -36,14 +33,11 @@
         <tbody>
           <tr *ngFor="let posting of filteredPostings">
             <td>
-              <a [routerLink]="['/postings', posting.id,posting.cityname]">
-                {{ posting.name }}
+              <a [routerLink]="['/postings', posting.id,posting.handle]">
+                {{ posting.handle }}
               </a>
             </td>
-            <td>{{ posting.address }}</td>
-            <td>{{ posting.gender }}</td>
-            <td>{{ posting.company }}</td>
-            <td>{{ posting.designation}} </td>
+            <td>{{ posting.price }}</td>
             <td>
               <button class="btn btn-outline-primary btn-sm"
                 [routerLink]="['/postings', posting.id, posting.cityname, 'edit']">

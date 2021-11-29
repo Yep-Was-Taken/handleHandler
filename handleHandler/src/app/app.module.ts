@@ -44,11 +44,11 @@ import { PostingService } from './posting/posting.service';
         component: PostingListComponent
       },
       {
-        path: 'postings/:id/:cityname',
+        path: 'postings/:id/:handle',
         component: PostingDetailComponent
       },
       {
-        path: 'postings/:id/:cityname/edit',
+        path: 'postings/:id/:handle/edit',
         canDeactivate: [PostingEditGuard],
         component: PostingEditComponent
       },

@@ -10,8 +10,7 @@ import { PostingEditComponent } from './posting-edit.component';
 export class PostingEditGuard implements CanDeactivate<PostingEditComponent> {  
   canDeactivate(component: PostingEditComponent): Observable<boolean> | Promise<boolean> | boolean {  
     if (component.postingForm.dirty) {  
-      const name = component.postingForm.get('name').value || 'New Posting';  
-      return confirm(`Navigate away and lose all changes to ${name}?`);  
+      return confirm(`Navigate away and lose all changes?`);  
     }  
     return true;  
   }  

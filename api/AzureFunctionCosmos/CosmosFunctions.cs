@@ -13,31 +13,31 @@ namespace AzureFunctionCosmos
     public static class GetAll
     {
         [FunctionName("GetAll")]
-        public static async Task<IEnumerable<Employee>> Run([HttpTrigger(AuthorizationLevel.Function, "get", Route = "Get")]HttpRequest req, TraceWriter log)
+        public static async Task<IEnumerable<Posting>> Run([HttpTrigger(AuthorizationLevel.Function, "get", Route = "Get")]HttpRequest req, TraceWriter log)
         {
             log.Info("C# HTTP trigger function to get all data from Cosmos DB");
 
-            IDocumentDBRepository<Employee> Respository = new DocumentDBRepository<Employee>();
-            return await Respository.GetItemsAsync("Employee");
+            IDocumentDBRepository<Posting> Respository = new DocumentDBRepository<Posting>();
+            return await Respository.GetItemsAsync("Posting");
         }
     }
 
     public static class GetSingle
     {
         [FunctionName("GetSingle")]
-        public static async Task<Employee> Run([HttpTrigger(AuthorizationLevel.Function, "get", Route = "Get/{id}/{cityName}")]HttpRequest req, TraceWriter log, string id, string cityName)
+        public static async Task<Posting> Run([HttpTrigger(AuthorizationLevel.Function, "get", Route = "Get/{id}/{cityName}")]HttpRequest req, TraceWriter log, string id, string cityName)
         {
             log.Info("C# HTTP trigger function to get a single data from Cosmos DB");
 
-            IDocumentDBRepository<Employee> Respository = new DocumentDBRepository<Employee>();
-            var employees = await Respository.GetItemsAsync(d => d.Id == id && d.Cityname == cityName, "Employee");
-            Employee employee = new Employee();
-            foreach (var emp in employees)
+            IDocumentDBRepository<Posting> Respository = new DocumentDBRepository<Posting>();
+            var postings = await Respository.GetItemsAsync(d => d.Id == id && d.Cityname == cityName, "Posting");
+            Posting posting = new Posting();
+            foreach (var emp in postings)
             {
-                employee = emp;
+                posting = emp;
                 break;
             }
-            return employee;
+            return posting;
         }
     }
 
@@ -49,17 +49,17 @@ namespace AzureFunctionCosmos
             log.Info("C# HTTP trigger function to create a record into Cosmos DB");
             try
             {
-                IDocumentDBRepository<Employee> Respository = new DocumentDBRepository<Employee>();
+                IDocumentDBRepository<Posting> Respository = new DocumentDBRepository<Posting>();
                 string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-                var employee = JsonConvert.DeserializeObject<Employee>(requestBody);
+                var posting = JsonConvert.DeserializeObject<Posting>(requestBody);
                 if (req.Method == "POST")
                 {
-                    employee.Id = null;
-                    await Respository.CreateItemAsync(employee, "Employee");
+                    posting.Id = null;
+                    await Respository.CreateItemAsync(posting, "Posting");
                 }
                 else
                 {
-                    await Respository.UpdateItemAsync(employee.Id, employee, "Employee");
+                    await Respository.UpdateItemAsync(posting.Id, posting, "Posting");
                 }
                 return true;
             }
@@ -75,14 +75,14 @@ namespace AzureFunctionCosmos
     public static class Delete
     {
         [FunctionName("Delete")]
-        public static async Task<bool> Run([HttpTrigger(AuthorizationLevel.Function, "delete", Route = "Delete/{id}/{cityName}")]HttpRequest req, TraceWriter log, string id, string cityName)
+        public static async Task<bool> Run([HttpTrigger(AuthorizationLevel.Function, "delete", Route = "Delete/{id}/{handle}")]HttpRequest req, TraceWriter log, string id, string handle)
         {
             log.Info("C# HTTP trigger function to delete a record from Cosmos DB");
 
-            IDocumentDBRepository<Employee> Respository = new DocumentDBRepository<Employee>();
+            IDocumentDBRepository<Posting> Respository = new DocumentDBRepository<Posting>();
             try
             {
-                await Respository.DeleteItemAsync(id, "Employee", cityName);
+                await Respository.DeleteItemAsync(id, "Posting", handle);
                 return true;
             }
             catch

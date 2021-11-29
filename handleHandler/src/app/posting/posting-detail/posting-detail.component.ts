@@ -19,14 +19,14 @@ export class PostingDetailComponent implements OnInit {
   
   ngOnInit() {  
     const id = this.route.snapshot.paramMap.get('id');  
-    const cityname = this.route.snapshot.paramMap.get('cityname');  
-    if (id && cityname) {  
-      this.getPosting(id, cityname);  
+    const handle = this.route.snapshot.paramMap.get('handle');  
+    if (id && handle) {  
+      this.getPosting(id, handle);  
     }  
   }  
   
-  getPosting(id: string, cityName: string) {  
-    this.postingService.getPosting(id, cityName).subscribe(  
+  getPosting(id: string, handle: string) {  
+    this.postingService.getPosting(id, handle).subscribe(  
       posting => this.posting = posting,  
       error => this.errorMessage = <any>error);  
   }  

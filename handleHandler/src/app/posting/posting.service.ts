@@ -17,11 +17,11 @@ export class PostingService {
       );
   }
 
-  getPosting(id: string, cityName: string): Observable<Posting> {
+  getPosting(id: string, handle: string): Observable<Posting> {
     if (id === '') {
       return of(this.initializePosting());
     }
-    const url = `${this.postingsUrl + 'Get'}/${id}/${cityName}`;
+    const url = `${this.postingsUrl + 'Get'}/${id}/${handle}`;
     return this.http.get<Posting>(url)
       .pipe(
         catchError(this.handleError)
@@ -36,9 +36,9 @@ export class PostingService {
       );
   }
 
-  deletePosting(id: string, cityname: string): Observable<{}> {
+  deletePosting(id: string, handle: string): Observable<{}> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const url = `${this.postingsUrl + 'Delete'}/${id}/${cityname}`;
+    const url = `${this.postingsUrl + 'Delete'}/${id}/${handle}`;
     return this.http.delete<Posting>(url, { headers: headers })
       .pipe(
         catchError(this.handleError)
@@ -69,12 +69,8 @@ export class PostingService {
   private initializePosting(): Posting {
     return {
       id: null,
-      name: null,
-      address: null,
-      gender: null,
-      company: null,
-      designation: null,
-      cityname: null
+      handle: null,
+      price: null
     };
   }
 }  

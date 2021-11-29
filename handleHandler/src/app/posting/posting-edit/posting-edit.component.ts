@@ -30,13 +30,13 @@ export class PostingEditComponent implements OnInit, OnDestroy {
     private postingService: PostingService) {  
   
     this.validationMessages = {  
-      name: {  
-        required: 'Posting name is required.',  
-        minlength: 'Posting name must be at least three characters.',  
-        maxlength: 'Posting name cannot exceed 50 characters.'  
+      handle: {  
+        required: 'Handle is required.',  
+        minlength: 'Handle must be at least three characters.',  
+        maxlength: 'Handle cannot exceed 50 characters.'  
       },  
-      cityname: {  
-        required: 'Posting city name is required.',  
+      price: {  
+        required: 'Price is required.',  
       }  
     };  
     this.genericValidator = new GenericValidator(this.validationMessages);  
@@ -45,27 +45,23 @@ export class PostingEditComponent implements OnInit, OnDestroy {
   ngOnInit() {  
     this.tranMode = "new";  
     this.postingForm = this.fb.group({  
-      name: ['', [Validators.required,  
+      handle: ['', [Validators.required,  
       Validators.minLength(3),  
       Validators.maxLength(50)  
       ]],  
-      address: '',  
-      cityname: ['', [Validators.required]],  
-      gender: '',  
-      company: '',  
-      designation: '',  
+      price: '',
     });  
   
     this.sub = this.route.paramMap.subscribe(  
       params => {  
         const id = params.get('id');  
-        const cityname = params.get('cityname');  
+        const handle = params.get('handle');  
         if (id == '0') {  
-          const posting: Posting = { id: "0", name: "", address: "", gender: "", company: "", designation: "", cityname: "" };  
+          const posting: Posting = { id: "0", handle: "", price: ""};  
           this.displayPosting(posting);  
         }  
         else {  
-          this.getPosting(id, cityname);  
+          this.getPosting(id, handle);  
         }  
       }  
     );  
@@ -75,8 +71,8 @@ export class PostingEditComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe();  
   }  
   
-  getPosting(id: string, cityname: string): void {  
-    this.postingService.getPosting(id, cityname)  
+  getPosting(id: string, handle: string): void {  
+    this.postingService.getPosting(id, handle)  
       .subscribe(  
         (posting: Posting) => this.displayPosting(posting),  
         (error: any) => this.errorMessage = <any>error  
@@ -91,15 +87,11 @@ export class PostingEditComponent implements OnInit, OnDestroy {
     if (this.posting.id == '0') {  
       this.pageTitle = 'Add Posting';  
     } else {  
-      this.pageTitle = `Edit Posting: ${this.posting.name}`;  
+      this.pageTitle = `Edit Posting: ${this.posting.handle}`;  
     }  
     this.postingForm.patchValue({  
-      name: this.posting.name,  
-      address: this.posting.address,  
-      gender: this.posting.gender,  
-      company: this.posting.company,  
-      designation: this.posting.designation,  
-      cityname: this.posting.cityname  
+      handle: this.posting.handle,  
+      price: this.posting.price 
     });  
   }  
   
@@ -107,8 +99,8 @@ export class PostingEditComponent implements OnInit, OnDestroy {
     if (this.posting.id == '0') {  
       this.onSaveComplete();  
     } else {  
-      if (confirm(`Are you sure want to delete this Posting: ${this.posting.name}?`)) {  
-        this.postingService.deletePosting(this.posting.id, this.posting.cityname)  
+      if (confirm(`Are you sure want to delete this Posting: ${this.posting.handle}?`)) {  
+        this.postingService.deletePosting(this.posting.id, this.posting.handle)  
           .subscribe(  
             () => this.onSaveComplete(),  
             (error: any) => this.errorMessage = <any>error  

@@ -27,7 +27,7 @@ export class PostingListComponent implements OnInit {
   performFilter(filterBy: string): Posting[] {  
     filterBy = filterBy.toLocaleLowerCase();  
     return this.postings.filter((posting: Posting) =>  
-      posting.name.toLocaleLowerCase().indexOf(filterBy) !== -1);  
+      posting.handle.toLocaleLowerCase().indexOf(filterBy) !== -1);  
   }  
   
   ngOnInit(): void {  
@@ -40,12 +40,12 @@ export class PostingListComponent implements OnInit {
     );  
   }  
   
-  deletePosting(id: string, name: string, cityname: string): void {  
+  deletePosting(id: string, handle: string): void {  
     if (id === '') {  
       this.onSaveComplete();  
     } else {  
-      if (confirm(`Are you sure want to delete this Posting: ${name}?`)) {  
-        this.postingService.deletePosting(id, cityname)  
+      if (confirm(`Are you sure want to delete this Posting: ${handle}?`)) {  
+        this.postingService.deletePosting(id, handle)  
           .subscribe(  
             () => this.onSaveComplete(),  
             (error: any) => this.errorMessage = <any>error  
