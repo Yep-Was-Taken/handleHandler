@@ -2,7 +2,7 @@
 
 namespace AzureFunctionCosmos.Data
 {
-    public class Employee
+    public class Posting
     {
         [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
