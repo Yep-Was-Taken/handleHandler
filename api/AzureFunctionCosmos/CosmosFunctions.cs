@@ -30,7 +30,7 @@ namespace AzureFunctionCosmos
             log.Info("C# HTTP trigger function to get a single data from Cosmos DB");
 
             IDocumentDBRepository<Posting> Respository = new DocumentDBRepository<Posting>();
-            var postings = await Respository.GetItemsAsync(d => d.Id == id && d.Cityname == cityName, "Posting");
+            var postings = await Respository.GetItemsAsync(d => d.Id == id && d.handle == Handle, "Posting");
             Posting posting = new Posting();
             foreach (var emp in postings)
             {
